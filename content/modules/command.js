@@ -346,7 +346,7 @@ var command = {
             return node && /^(https?|ftp):/.test(node.uri);
         }
 
-        var urlList = [getInfo(item) for ([, item] in Iterator(items)) if (isBookmarkItem(item))];
+        var urlList = [for (x of Iterator(items)) if (isBookmarkItem(item)) getInfo(x[1])];
 
         prompt.selector(
             {
@@ -481,7 +481,7 @@ var command = {
 
         try {
             selection.QueryInterface(Components.interfaces.nsISelection2)
-	        .scrollIntoView(editor.selectionController.SELECTION_ANCHOR_REGION, true, aVPercent, aHPercent);
+          .scrollIntoView(editor.selectionController.SELECTION_ANCHOR_REGION, true, aVPercent, aHPercent);
         } catch (_) {}
     },
 
@@ -833,10 +833,10 @@ var command = {
             return null;
         trans.addDataFlavor("text/unicode");
 
-	if (selection == true)
+  if (selection == true)
             clip.getData(trans, clip.kSelectionClipboard);
-	else
-	    clip.getData(trans, clip.kGlobalClipboard);
+  else
+      clip.getData(trans, clip.kGlobalClipboard);
 
         var str       = {};
         var strLength = {};

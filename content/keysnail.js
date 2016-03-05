@@ -593,7 +593,7 @@
                 if (pluginUpdater.checking)
                     return;
 
-                let paths = [path for ([path, plugin] in Iterator(plugins.context))];
+                let paths = [for (x of Iterator(plugins.context)) x[0]];
 
                 pluginUpdater.checking = true;
                 pluginUpdater.pluginsWithUpdate = [];

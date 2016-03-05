@@ -309,7 +309,7 @@ var util = function () {
                 // returns pair of hex code for given 1 byte
                 function toHexString(charCode) ("0" + charCode.toString(16)).slice(-2);
 
-                return [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
+                return [for (i of hash) toHexString(hash.charCodeAt(i))].join("");
             }
 
             return hash;
@@ -445,7 +445,8 @@ var util = function () {
                     }
                 }
 
-                let buffer = [[k, v] for ([k, v] in new Iterator(obj))];
+                // let buffer = [[k, v] for ([k, v] in new Iterator(obj))];
+                let buffer = [for (x of new Iterator(obj)) [x[0], x[1]]];
                 let max    = Math.max.apply(null, buffer.map(function ([k]) (k || "").length));
                 let util   = this;
                 this.message(buffer.map(function ([k, v]) k + util.repeatString(" ", max - k.length) + " : " + getV(v)).join("\n"));
@@ -1209,7 +1210,7 @@ var util = function () {
             let pt = typeof prm;
 
             if (prm && pt === "object")
-                prm = [k + "=" + v for ([k, v] in Iterator(prm))].join("&");
+                prm = [for (x of Iterator(prm)) x[0] + "=" + x[1]].join("&");
             else if (pt !== "string")
                 prm = "";
 
@@ -1379,7 +1380,7 @@ var util = function () {
                 // nothing
                 break;
             case "object":
-                params = [k + "=" + v for ([k, v] in Iterator(params))].join("&");
+                params = [for (x of Iterator(params)) x[0] + "=" + x[1]].join("&");
                 break;
             default:
                 params = "";
@@ -1647,7 +1648,7 @@ var util = function () {
         // String {{ ================================================================ //
 
         repeatString: function (str, len) {
-            return [str for (i in this.range(0, len))].join("");
+            return [for (i of this.range(0, len)) str].join("");
         },
 
         createSeparator: function (label) {
